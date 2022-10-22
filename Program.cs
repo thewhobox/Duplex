@@ -20,6 +20,7 @@ Console.WriteLine($"Anzahl an Karten: {count}");
 
 Console.WriteLine($"Lade Vorderseiten");
 PdfDocument doc = PdfReader.Open(args[1] + "-front.pdf", PdfDocumentOpenMode.Import);
+PdfDocument doc2 = PdfReader.Open(args[1] + "-red-blue.pdf", PdfDocumentOpenMode.Import);
 for(int i = 0; i < white; i++)
     for(int j = 0; j < 11; j++)
         pages.Add(doc.Pages[j]);
@@ -33,8 +34,10 @@ for(int i = 0; i < grey; i++)
 Console.WriteLine($"Anzahl an Seiten: {pages.Count}");
 
 doc = new PdfDocument();
+doc.AddPage(doc2.Pages[0]);
 foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList())
     doc.AddPage(page);
+doc.Pages.RemoveAt(1);
 
 doc.Save(args[1] + "-front-final.pdf");
 
@@ -42,6 +45,7 @@ doc.Save(args[1] + "-front-final.pdf");
 pages.Clear();
 Console.WriteLine($"Lade Rückseiten");
 doc = PdfReader.Open(args[1] + "-back.pdf", PdfDocumentOpenMode.Import);
+
 for(int i = 0; i < white; i++)
     for(int j = 0; j < 11; j++)
         pages.Add(doc.Pages[j]);
@@ -55,7 +59,9 @@ for(int i = 0; i < grey; i++)
 Console.WriteLine($"Anzahl an Seiten: {pages.Count}");
 
 doc = new PdfDocument();
+doc.AddPage(doc2.Pages[1]);
 foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList())
     doc.AddPage(page);
+doc.Pages.RemoveAt(1);
 
 doc.Save(args[1] + "-back-final.pdf");
