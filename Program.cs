@@ -18,6 +18,8 @@ count = 11*black + 11*white + 11*grey;
 Console.WriteLine($"Farben: {black}xSchwarz {white}xWeiß {grey}xGrau");
 Console.WriteLine($"Anzahl an Karten: {count}");
 
+PdfDocument doc2 = PdfReader.Open(args[1] + "-player.pdf", PdfDocumentOpenMode.Import);
+
 Console.WriteLine($"Lade Vorderseiten");
 PdfDocument doc = PdfReader.Open(args[1] + "-front.pdf", PdfDocumentOpenMode.Import);
 for(int i = 0; i < white; i++)
@@ -33,7 +35,8 @@ for(int i = 0; i < grey; i++)
 Console.WriteLine($"Anzahl an Seiten: {pages.Count}");
 
 doc = new PdfDocument();
-foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList())
+doc.AddPage(doc2.Pages[0]);
+foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList().Skip(1))
     doc.AddPage(page);
 
 doc.Save(args[1] + "-front-final.pdf");
@@ -55,7 +58,8 @@ for(int i = 0; i < grey; i++)
 Console.WriteLine($"Anzahl an Seiten: {pages.Count}");
 
 doc = new PdfDocument();
-foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList())
+doc.AddPage(doc2.Pages[1]);
+foreach(PdfPage page in pages.OrderBy(a => rng.Next()).ToList().Skip(1))
     doc.AddPage(page);
 
 doc.Save(args[1] + "-back-final.pdf");
