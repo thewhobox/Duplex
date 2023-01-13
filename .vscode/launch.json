@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/net6.0/Duplex.exe",
-            "args": ["4,4,2", "C:\\Users\\u6\\Downloads\\Dokument-3"],
+            "args": ["4,4,2", "C:\\Users\\mikeg\\OneDrive - Mike Gerst\\Spiele\\Kartenspiel\\Dokument-3"],
             "cwd": "${workspaceFolder}/bin/Debug/net6.0/",
             "stopAtEntry": false,
             "console": "internalConsole"
